@@ -23,6 +23,24 @@ body {
     margin: 0;
     padding: 0;
 }
+
+video {
+    gridArea: 1/1;
+    position: relative;
+    placeItems: center;
+    display: grid;
+    object-fit: cover;
+    object-position: 32%; 
+    height: 100vh;
+    @media(maxWidth){
+        /* object-fit: cover;
+        object-position: 32%; 
+        height: 100vw;
+        */
+    }
+}
+
+
 `
 
 const CenterContent = styled.div`
@@ -31,6 +49,7 @@ flex-direction: column;
 justify-content: center;
 align-content: center;
 max-width: 797px;
+
 p {
     margin: 40px;
     text-align: center;
@@ -67,9 +86,9 @@ const IndexPage = () => {
         <title>Home Page</title>
         <div style={{ display: "grid", maxHeight: 900}} id="homeSection">
             <Video
-            
+                className="videoClass"
                 videoSrcURL={GlacierVideo}
-                videoTitle="Official Music Video on YouTube"
+                videoTitle="Glacier Hero Video"
             />
             <div
                 style={{
@@ -88,6 +107,7 @@ const IndexPage = () => {
                              maxWidth: "797px",
                              gridArea: "1/1",
                              position: "relative",
+                             margin: "0 10px",
                              placeItems: "center",
                              display: "grid",
                             }}
