@@ -1,0 +1,307 @@
+import React, {useState} from "react"
+import { Link } from 'gatsby'
+import styled from '@emotion/styled';
+import {css} from '@emotion/react';
+import scrollTo from 'gatsby-plugin-smoothscroll';
+import { StaticImage } from "gatsby-plugin-image";
+import AniLink from "gatsby-plugin-transition-link/AniLink"
+
+//Nav
+
+const styles = ({menuOpen}) => css`
+    display: block;
+    padding: 15px;
+    cursor: pointer;
+    transition-property: opacity, filter;
+    transition-duration: 0.15s;
+    transition-timing-function: linear;
+    font: inherit;
+    color: inherit;
+    text-transform: none;
+    background-color: transparent;
+    border: 0;
+    margin: 0;
+    overflow: visible;
+.hamburger-box {
+    width: 40px;
+    height: 24px;
+    display: inline-block;
+    position: relative;
+}
+.hamburger-inner {
+        display: block;
+        top: 70%;
+        ${'' /* margin-top: 4px; */}
+        width: 40px;
+        height: 3px;
+        background-color: #000;
+        border-radius: 4px;
+        position: absolute;
+        transition-property: transform;
+        transition-duration: 0.15s;
+        transition-timing-function: ease;
+
+        transition-duration: 0.075s;
+        transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);    
+}
+
+.hamburger-inner:after {
+        transition: bottom 0.075s 0.12s ease,
+        transform 0.075s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+        content: "";
+        left: 0;
+        bottom: 10px;
+        width: 40px;
+        height: 3px;
+        background-color: #000;
+        border-radius: 4px;
+        position: absolute;
+}
+
+${menuOpen === true &&`
+.hamburger-inner-active {
+        top: 50%;
+        transform: rotate(45deg);
+        ${'' /* transition-delay: 0.12s; */}
+        transition: top 0.075s ease,
+        transform 0.075s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
+        ${'' /* transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); */}
+      } 
+    .hamburger-inner-active::after {
+        content: "";
+        bottom: 0;
+        transform: rotate(-90deg);
+        transition: bottom 0.075s ease,
+        transform 0.075s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+
+
+`}
+`
+
+const sidebarStyles = ({menuOpen}) => css`
+${'' /* display: none; */}
+overflow-x: scroll;
+white-space: nowrap;
+transition: .5s;
+transition-delay: 0;
+position: fixed;
+top: 0;
+right:0;
+opacity: 0;
+z-index: -400;
+height: 100%;
+width: 100%;
+display: flex;
+flex-direction: column;
+justify-content: center;
+transform: translateY(-3%);
+button:hover {
+    cursor: pointer;
+}
+${menuOpen === true &&`
+z-index: 100;
+display: flex;
+transition-delay: .2s;
+transition: opacity .8s, transform .5s;
+transition-timing-function: ease-out;
+opacity: 1;
+transform: translateX(0%);
+`}
+`
+const backdropStyle = ({menuOpen}) => css`
+    position: fixed;
+    z-index: -100;
+    top: 0;
+    left: 0;
+    ${'' /* transition: .3s; */}
+    transition-delay: .3s;
+    transition: background-color .3s, z-index .4s;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255,255,255,0);
+
+${menuOpen === true &&`
+z-index: 50;
+transition: background-color .3s, z-index .1s;
+background-color: rgba(255,255,255,1);
+`}
+`
+
+
+const Navbar = styled.div`
+position: absolute;
+top: 0;
+left: 0;
+display: flex;
+align-items: center;
+margin: auto;
+justify-content: center;
+width: 100%;
+z-index: 1000;
+background-color: rgba(255, 255, 255, 0.92); 
+/* inset */
+/* box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;  */
+/* min github */
+box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px, rgba(255, 255, 255, 0.25) 0px 1px 0px inset;
+`
+const NavContent = styled.div`
+/* max-width: 960px; */
+z-index: 1000;
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 0 100px;
+height: 100px;
+width: 100%;
+a{
+    font-size: 1.1em;
+    font-weight: 100;
+    margin: 0 10px;
+    transition: .3s;
+    text-decoration: none;
+}
+@media (max-width: 1024px){
+    /* margin-top: 10px; */
+
+}
+@media (max-width: 660px){
+padding: 0 10px;
+}
+`
+const Links = styled.div`
+justify-content: center;
+align-items: center;
+display: flex;
+flex-direction: row;
+`
+const NavLink = styled.a`
+font-family: 'Open';
+color: black;
+border-bottom: rgba(255,255,255,0) 2px solid;
+:hover{
+        border-bottom: black 2px solid;
+        cursor: pointer;
+    }
+`
+
+const DrawerLink = styled.button`
+font-family: 'Open Sans';
+color: white;
+background: none;
+border: none;
+padding: 10px 20px;
+font-size: 1.5em;
+:hover{
+        cursor: pointer;
+    }
+
+`
+
+const DrawerLinkA = styled.a`
+font-family: 'Open Sans';
+color: black;
+text-align: center;
+text-decoration: none;
+background: none;
+border: none;
+padding: 10px 20px;
+font-size: 1.5em;
+:hover{
+        cursor: pointer;
+    }
+`
+
+const InsideDrawerLink = styled(Link)`
+font-family: 'Open Sans';
+color: black;
+text-align: center;
+text-decoration: none;
+background: none;
+border: none;
+padding: 10px 20px;
+font-size: 1.5em;
+:hover{
+        cursor: pointer;
+    }
+`
+
+
+const Logo = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: center;
+/* margin:  0 auto 0 100px; */
+h1 {
+    font-weight: 500;
+    font-size: 50px;
+    font-family: "Halant";
+    margin:  0 0 -18px 0;
+    letter-spacing: 2px;
+}
+p {
+    margin: 0;
+    color: #707070;
+    margin-left: 20px;
+}
+`
+
+
+
+export default function Nav({pageLocation}){
+    const [menuOpen, setMenuOpen] = useState(false);
+    console.log('navbar props', pageLocation)
+    let NavigationLinks = <Links> 
+        <NavLink href="/#contactM" >
+            Contact
+        </NavLink>
+    </Links>
+    if (pageLocation === "/"){
+        NavigationLinks = (
+            <Links> 
+                <NavLink onClick={() => scrollTo("#contactSection","center")}>
+                    Contact
+                </NavLink>
+            </Links>
+        )
+    } 
+    let DrawerLinks = (
+        <div css={sidebarStyles({ menuOpen })} onClick={() => {setMenuOpen(false)}}>
+            <InsideDrawerLink to="/">
+                Home
+            </InsideDrawerLink>
+            <InsideDrawerLink to="/about">
+                About
+            </InsideDrawerLink>
+            <InsideDrawerLink to="/services">
+                Services
+            </InsideDrawerLink>
+            <DrawerLinkA onClick={() => {scrollTo("#contactSection","center"); setMenuOpen(!menuOpen)}}>
+                Contact
+            </DrawerLinkA>
+        </div> 
+    )
+    return (
+    <div>    
+        <Navbar>
+            <NavContent>
+                <Link to="/" alt="thoughtfulHQ logo">
+                <Logo>
+                    <StaticImage height="60" src="../images/thoughtfulHQlogo.png"/>
+                </Logo>
+                </Link>
+                <Links> 
+                    {NavigationLinks}
+                    <button css={styles({ menuOpen })} onClick={() => setMenuOpen(!menuOpen)} aria-label="Navigation menu toggle">
+                        <span className="hamburger-box">
+                            <span className={menuOpen? "hamburger-inner hamburger-inner-active" : "hamburger-inner"}></span>
+                        </span>
+                    </button>
+                </Links>
+            </NavContent>
+        </Navbar>
+    {DrawerLinks}
+    <div css={backdropStyle({ menuOpen })}/>
+    </div>
+    )
+}
