@@ -81,7 +81,7 @@ const IndexPage = () => {
                 >
                 <CenterContent>
                         <StaticImage
-                        src={"../images/Glacierinternational.png"}
+                        src={"../images/glacierinternational.png"}
                         // style={{
                         //     maxHeight: "112px",
                         //     maxWidth: "797px",
