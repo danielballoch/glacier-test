@@ -81,15 +81,16 @@ const IndexPage = () => {
                 >
                 <CenterContent>
                         <StaticImage
-                        src={"../images/glacierinternational.png"}
-                        // style={{
-                        //     maxHeight: "112px",
-                        //     maxWidth: "797px",
-                        //     gridArea: "1/1",
-                        //     position: "relative",
-                        //     placeItems: "center",
-                        //     display: "grid",
-                        //     }}
+                        src={`../images/glacierLogo.png`}
+                        alt="Glacier International Logo"
+                         style={{
+                            maxHeight: "112px",
+                             maxWidth: "797px",
+                             gridArea: "1/1",
+                             position: "relative",
+                             placeItems: "center",
+                             display: "grid",
+                            }}
                         >
                     </StaticImage>
                     <p>Glacier International is a one-stop shop for importing, right hand drive re-manufacturing, and customising your Toyota Tundra. With cutting edge technology, the 2022 Toyota Tundra is a half-ton, meticulously engineered heavy metal machine, and our goal is to deliver it to Kiwis who value reliability, performance and class over anything else.</p>
