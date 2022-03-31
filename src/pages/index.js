@@ -5,6 +5,10 @@ import styled from '@emotion/styled';
 import { StaticImage } from "gatsby-plugin-image"
 import Layout from "../components/layout"
 
+
+
+
+
 const pageStyles = {
     padding: 0,
     margin: 0
@@ -44,12 +48,21 @@ video {
 `
 
 const CenterContent = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-content: center;
-max-width: 797px;
-
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-content: center; */
+    background-color: rgba(0,0,0,0.5);
+div {
+    max-width: 797px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
 p {
     margin: 40px;
     text-align: center;
@@ -72,9 +85,13 @@ button {
     letter-spacing: 1.5px;
     line-height: 1.5;
     font-family: sans-serif;
-    padding: 12px 60px;
+    font-size: 14px;
+    padding: 12px 60px;\
+    transition: .3s;
     :hover {
         cursor: pointer;
+        background: rgba(255,255,255,1);
+        color: black;
     }
 }
 `
@@ -99,7 +116,8 @@ const IndexPage = () => {
                     }}
                 >
                 <CenterContent>
-                        <StaticImage
+                    <div>
+                    <StaticImage
                         src={`../images/glacierLogo.png`}
                         alt="Glacier International Logo"
                          style={{
@@ -110,11 +128,12 @@ const IndexPage = () => {
                              margin: "0 10px",
                              placeItems: "center",
                              display: "grid",
+                             opacity: "1",
                             }}
-                        >
-                    </StaticImage>
+                        />    
                     <p>Glacier International is a one-stop shop for importing, right hand drive re-manufacturing, and customising your Toyota Tundra. With cutting edge technology, the 2022 Toyota Tundra is a half-ton, meticulously engineered heavy metal machine, and our goal is to deliver it to Kiwis who value reliability, performance and class over anything else.</p>
                     <a href="mailto:sales@glacier.nz"><button >Enquire</button></a>
+                    </div>
                 </CenterContent>
                 
             
