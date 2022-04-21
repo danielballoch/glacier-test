@@ -34,7 +34,7 @@ const styles = ({menuOpen}) => css`
         ${'' /* margin-top: 4px; */}
         width: 40px;
         height: 3px;
-        background-color: #000;
+        background-color: white;
         border-radius: 4px;
         position: absolute;
         transition-property: transform;
@@ -53,7 +53,7 @@ const styles = ({menuOpen}) => css`
         bottom: 10px;
         width: 40px;
         height: 3px;
-        background-color: #000;
+        background-color: white;
         border-radius: 4px;
         position: absolute;
 }
@@ -124,7 +124,7 @@ const backdropStyle = ({menuOpen}) => css`
 ${menuOpen === true &&`
 z-index: 50;
 transition: background-color .3s, z-index .1s;
-background-color: rgba(255,255,255,1);
+background-color: rgba(0,0,0,.8);
 `}
 `
 
@@ -139,7 +139,7 @@ margin: auto;
 justify-content: center;
 width: 100%;
 z-index: 1000;
-background-color: rgba(255, 255, 255, 0.92); 
+/* background-color: rgba(255, 255, 255, 0.92);  */
 /* inset */
 /* box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;  */
 /* min github */
@@ -155,7 +155,7 @@ padding: 0 100px;
 height: 100px;
 width: 100%;
 a{
-    font-size: 1.1em;
+    font-size: 1em;
     font-weight: 100;
     margin: 0 10px;
     transition: .3s;
@@ -176,11 +176,12 @@ display: flex;
 flex-direction: row;
 `
 const NavLink = styled.a`
-font-family: 'Open';
-color: black;
+font-family: visby,sans-serif;
+letter-spacing: 1.4px;
+color: white;
 border-bottom: rgba(255,255,255,0) 2px solid;
 :hover{
-        border-bottom: black 2px solid;
+        border-bottom: white 2px solid;
         cursor: pointer;
     }
 `
@@ -200,7 +201,7 @@ font-size: 1.5em;
 
 const DrawerLinkA = styled.a`
 font-family: 'Open Sans';
-color: black;
+color: white;
 text-align: center;
 text-decoration: none;
 background: none;
@@ -214,7 +215,7 @@ font-size: 1.5em;
 
 const InsideDrawerLink = styled(Link)`
 font-family: 'Open Sans';
-color: black;
+color: white;
 text-align: center;
 text-decoration: none;
 background: none;
@@ -231,11 +232,13 @@ const Logo = styled.div`
 display: flex;
 flex-direction: column;
 justify-content: center;
+color: white;
 /* margin:  0 auto 0 100px; */
+font-family: 'visby',sans-serif;
 h1 {
     font-weight: 500;
     font-size: 50px;
-    font-family: "Halant";
+    
     margin:  0 0 -18px 0;
     letter-spacing: 2px;
 }
@@ -252,15 +255,15 @@ export default function Nav({pageLocation}){
     const [menuOpen, setMenuOpen] = useState(false);
     console.log('navbar props', pageLocation)
     let NavigationLinks = <Links> 
-        <NavLink href="/#contactM" >
-            Contact
+        <NavLink href="/build-my-tundra" >
+            Build My Tundra
         </NavLink>
     </Links>
     if (pageLocation === "/"){
         NavigationLinks = (
             <Links> 
                 <NavLink onClick={() => scrollTo("#contactSection","center")}>
-                    Contact
+                    Build My Tundra
                 </NavLink>
             </Links>
         )
@@ -270,7 +273,22 @@ export default function Nav({pageLocation}){
             <InsideDrawerLink to="/">
                 Home
             </InsideDrawerLink>
-            <InsideDrawerLink to="/about">
+            <InsideDrawerLink to="/">
+                About Us
+            </InsideDrawerLink>
+            <InsideDrawerLink to="/build-my-tundra">
+                Build My Tundra
+            </InsideDrawerLink>
+            <InsideDrawerLink to="/">
+                Build My Sequioa
+            </InsideDrawerLink>
+            <InsideDrawerLink to="/">
+                Careers
+            </InsideDrawerLink>
+            <InsideDrawerLink to="/">
+                Support
+            </InsideDrawerLink>
+            {/* <InsideDrawerLink to="/about">
                 About
             </InsideDrawerLink>
             <InsideDrawerLink to="/services">
@@ -278,7 +296,7 @@ export default function Nav({pageLocation}){
             </InsideDrawerLink>
             <DrawerLinkA onClick={() => {scrollTo("#contactSection","center"); setMenuOpen(!menuOpen)}}>
                 Contact
-            </DrawerLinkA>
+            </DrawerLinkA> */}
         </div> 
     )
     return (
@@ -287,7 +305,7 @@ export default function Nav({pageLocation}){
             <NavContent>
                 <Link to="/" alt="thoughtfulHQ logo">
                 <Logo>
-                    <StaticImage height="60" src="../images/thoughtfulHQlogo.png"/>
+                    Logo<StaticImage height="60" src="../images/thoughtfulHQlogo.png"/>
                 </Logo>
                 </Link>
                 <Links> 

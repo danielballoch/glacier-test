@@ -1,0 +1,23 @@
+Test youtube playlist embed:
+follow youtube instructions + try gatsby plugins
+*done, didn't need plugins, works great.
+
+2.Test live price update/build my Tundra page. 
+Do this on new page, do basic nac overlay to show what I meant.
+-> make seperate page for build Tundra test * done
+-> fix nav *done
+-> test cart(s)
+
+https://dev.to/nhuynh1/five-things-i-learned-by-building-my-own-shopping-cart-and-checkout-with-gatsby-and-stripe-273k 
+https://useshoppingcart.com/ 
+
+
+
+
+
+
+3.Make sure I can send form to ActiveCampaign.
+https://developers.activecampaign.com/reference/overview 
+
+
+4.Make sure I can do animations as clean as blackzqn.
