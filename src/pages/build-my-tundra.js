@@ -59,6 +59,16 @@ background-color: blue;
 background-color: green;
 }
 `
+const CenterLeft = styled.div`
+margin-left: 20px;
+p {
+
+}
+display: flex;
+justify-content: center;
+flex-direction: column;
+align-items: left;
+`
 
 const Row = styled.div`
 display: flex;
@@ -99,17 +109,17 @@ const IndexPage = () => {
                 <p>Price: ${price} (NZD)</p>
                 <Truck className={colour[0]}/>
             </Center>
-            <Center>
-                Model:
+            <CenterLeft>
+                <p>Model:</p>
                 <button onClick={() => setModel(["DOUBLE CAB SR",32000])}>TRD PRO</button>
                 <button onClick={() => setModel(["Double Cab SR Long Bed",36000])}>PLATINUM CREWMAX</button>
                 <button onClick={() => setModel(["CrewMax Capstone",42000])}>1794 EDITION CREWMAX</button>
                 <button onClick={() => setModel(["CrewMax Limited",47000])}>LIMITED</button>
-                Colour:
+                <p>Colour:</p>
                 <button onClick={() => setColour(["red",100])}>Red</button>
                 <button onClick={() => setColour(["blue",200])}>Blue</button>
                 <button onClick={() => setColour(["green",500])}>Green</button>
-            </Center>
+            </CenterLeft>
         </Row>
         
         
