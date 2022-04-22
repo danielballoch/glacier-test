@@ -305,7 +305,8 @@ export default function Nav({pageLocation}){
             <NavContent>
                 <Link to="/" alt="thoughtfulHQ logo">
                 <Logo>
-                    Logo<StaticImage height="60" src="../images/thoughtfulHQlogo.png"/>
+                    Logo
+                    {/* <StaticImage height="60" src="../images/thoughtfulHQlogo.png"/> */}
                 </Logo>
                 </Link>
                 <Links> 

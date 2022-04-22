@@ -1,4 +1,4 @@
-import * as React from "react"
+import React, {useState, useEffect} from "react"
 import styled from '@emotion/styled';
 import { StaticImage } from "gatsby-plugin-image"
 import Layout from "../components/layout"
@@ -14,13 +14,12 @@ const pageStyles = {
 
 const Main = styled.div`
 padding: 0;
-
+font-family: 'visby',sans-serif;
 color: white;
 h1 {
     /* margin-top: 100px; */
     text-align: center;
     color: white;
-    font-family: sans-serif;
     font-size: 50px;
 }
 body {
@@ -45,83 +44,77 @@ video {
 }
 `
 
-const CenterContent = styled.div`
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    /* align-content: center; */
-    /* background-color: rgba(0,0,0,0.5); */
-div {
-    max-width: 797px;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
+const Center = styled.div`
+display: flex;
+justify-content: center;
+flex-direction: column;
+align-items: center;
+.red {
+background-color: red;
 }
-p {
-    margin: 40px;
-    text-align: center;
-    font-family: visby,sans-serif;
-    font-weight: 400;
-    line-height: 1.4;
-    letter-spacing: 1.4px;
-    font-size: 13px;
-    opacity: 1;
+.blue {
+background-color: blue;
 }
-a {
-    margin: auto;
-}
-button {
-    margin: auto;
-    border: 1px solid white;
-    color: white;
-    background: rgba(0,0,0,0);
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    line-height: 1.5;
-    font-family: sans-serif;
-    font-size: 14px;
-    padding: 12px 60px;\
-    transition: .3s;
-    :hover {
-        cursor: pointer;
-        background: rgba(255,255,255,1);
-        color: black;
-    }
+.green {
+background-color: green;
 }
 `
 
-const YoutubeEmbed = styled.div`
-color: white;
-margin: 100px auto;
-height: 1000px;
-div {
-    width: 65%;
-    margin: 100px auto;
-    /* width: 560px;
-    height: 325px; */
-    /*  */
-    /* width: 840px;
-    height: 472px;
-    margin: 50px auto; */
-} 
-@media(max-width:1000px){
-    div {
-        width: 100%;
-    }
-}
+const Row = styled.div`
+display: flex;
+justify-content: center;
+flex-direction: row;
+align-items: center;
+`
 
+const Truck = styled.div`
+width: 400px;
+height: 400px;
+background-color: red;
 `
 
 const IndexPage = () => {
+    const [price, setPrice] = useState(0);
+
+    const [model, setModel] = useState(["TRD PRO",32000])
+    const [lift, setLift] = useState(0)
+
+    const [colour, setColour] = useState(["red",100])
+
+    const [accessory1, setAccessory1] = useState(false)
+    const [accessory2, setAccessory2] = useState(false)
+    const [accessory3, setAccessory3] = useState(false)
+    const [accessory4, setAccessory4] = useState(false)
+
+    useEffect(() => {
+        if (price !== (model[1] + colour[1] + lift)){setPrice(model[1] + colour[1])}
+    });
   return (
       <Layout>
         <Main style={pageStyles}>
         <title>Home Page</title>
-        <h1>Build My Tundra</h1>
+        <Row>
+            <Center>
+                <h1>Build My Tundra</h1>
+                <p>Price: ${price} (NZD)</p>
+                <Truck className={colour[0]}/>
+            </Center>
+            <Center>
+                Model:
+                <button onClick={() => setModel(["DOUBLE CAB SR",32000])}>TRD PRO</button>
+                <button onClick={() => setModel(["Double Cab SR Long Bed",36000])}>PLATINUM CREWMAX</button>
+                <button onClick={() => setModel(["CrewMax Capstone",42000])}>1794 EDITION CREWMAX</button>
+                <button onClick={() => setModel(["CrewMax Limited",47000])}>LIMITED</button>
+                Colour:
+                <button onClick={() => setColour(["red",100])}>Red</button>
+                <button onClick={() => setColour(["blue",200])}>Blue</button>
+                <button onClick={() => setColour(["green",500])}>Green</button>
+            </Center>
+        </Row>
+        
+        
+        
+
         </Main>
     </Layout>
   )
