@@ -1,6 +1,6 @@
 import * as React from "react"
 import Video from "../components/video"
-import GlacierVideo from "../images/glacierTestVideo.mp4"
+import GlacierVideo from "../images/glacierBGVideo.mp4"
 import styled from '@emotion/styled';
 import { StaticImage } from "gatsby-plugin-image"
 import Layout from "../components/layout"
