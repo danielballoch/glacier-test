@@ -2,7 +2,17 @@ import React, {useState, useEffect} from "react"
 import styled from '@emotion/styled';
 import { StaticImage } from "gatsby-plugin-image"
 import Layout from "../components/layout"
+import LimitedWhite from "../images/tundra/limited/white.png"
+import LimitedBlack from "../images/tundra/limited/black.png"
+import LimitedBlue from "../images/tundra/limited/blue.png"
 
+import CapstoneBlue from "../images/tundra/capstone/blue.png"
+import CapstoneWhite from "../images/tundra/capstone/white.png"
+import CapstoneBlack from "../images/tundra/capstone/black.png"
+
+import SRBlue from "../images/tundra/sr/blue.png"
+import SRBlack from "../images/tundra/sr/black.png"
+import SRWhite from "../images/tundra/sr/white.png"
 
 
 
@@ -68,6 +78,9 @@ display: flex;
 justify-content: center;
 flex-direction: column;
 align-items: left;
+.active {
+    background-color: blue;
+}
 `
 
 const Row = styled.div`
@@ -81,7 +94,9 @@ const Truck = styled.div`
 width: 400px;
 height: 400px;
 background-color: red;
+
 `
+
 
 const IndexPage = () => {
     const [price, setPrice] = useState(0);
@@ -107,18 +122,27 @@ const IndexPage = () => {
             <Center>
                 <h1>Build My Tundra</h1>
                 <p>Price: ${price} (NZD)</p>
-                <Truck className={colour[0]}/>
+                <img src={(
+                model[0] === "CrewMax Limited" && colour[0] === "white" ? LimitedWhite : 
+                model[0] === "CrewMax Limited" && colour[0] === "black" ? LimitedBlack :
+                model[0] === "CrewMax Limited" ? LimitedBlue : 
+                model[0] === "CrewMax Capstone" && colour[0] === "white" ? CapstoneWhite :
+                model[0] === "CrewMax Capstone" && colour[0] === "black" ? CapstoneBlack :
+                model[0] === "CrewMax Capstone" ? CapstoneBlue : 
+                model[0] === "DOUBLE CAB SR" && colour[0] === "white" ? SRWhite :
+                model[0] === "DOUBLE CAB SR" && colour[0] === "black" ? SRBlack :
+                SRBlue
+                )}/>
             </Center>
             <CenterLeft>
-                <p>Model:</p>
-                <button onClick={() => setModel(["DOUBLE CAB SR",32000])}>TRD PRO</button>
-                <button onClick={() => setModel(["Double Cab SR Long Bed",36000])}>PLATINUM CREWMAX</button>
-                <button onClick={() => setModel(["CrewMax Capstone",42000])}>1794 EDITION CREWMAX</button>
-                <button onClick={() => setModel(["CrewMax Limited",47000])}>LIMITED</button>
+                <p>Base Model:</p>
+                <button className={(model[0] === "DOUBLE CAB SR" ? 'active' : '') } onClick={() => setModel(["DOUBLE CAB SR",32000])}>DOUBLE CAB SR</button>
+                <button className={(model[0] === "CrewMax Capstone" ? 'active' : '') } onClick={() => setModel(["CrewMax Capstone",42000])}>CrewMax SR</button>
+                <button className={(model[0] === "CrewMax Limited" ? 'active' : '') } onClick={() => setModel(["CrewMax Limited",47000])}>CrewMax Limited</button>
                 <p>Colour:</p>
-                <button onClick={() => setColour(["red",100])}>Red</button>
-                <button onClick={() => setColour(["blue",200])}>Blue</button>
-                <button onClick={() => setColour(["green",500])}>Green</button>
+                <button className={(colour[0] === "white" ? 'active' : '') } onClick={() => setColour(["white",100])}>White</button>
+                <button className={(colour[0] === "blue" ? 'active' : '') } onClick={() => setColour(["blue",200])}>Blue</button>
+                <button className={(colour[0] === "black" ? 'active' : '') } onClick={() => setColour(["black",500])}>black</button>
             </CenterLeft>
         </Row>
         
