@@ -1,9 +1,12 @@
-import * as React from "react"
+import React, {useState} from "react"
 import Video from "../components/video"
 import GlacierVideo from "../images/glacierBGVideo.mp4"
 import styled from '@emotion/styled';
+import {css} from '@emotion/react';
 import { StaticImage } from "gatsby-plugin-image"
 import Layout from "../components/layout"
+
+// import Terms from "../components/termsPopup"
 
 
 
@@ -84,7 +87,7 @@ button {
     line-height: 1.5;
     font-family: sans-serif;
     font-size: 14px;
-    padding: 12px 60px;\
+    padding: 12px 60px;
     transition: .3s;
     :hover {
         cursor: pointer;
@@ -113,10 +116,76 @@ div {
         width: 100%;
     }
 }
-
 `
 
+const Youtube2 = styled.div`
+img {
+    object-position: top;
+}
+button {
+
+    width: 150px;
+    height: 150px;
+    font-size: 2rem;
+    font-weight: 100;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    color: #fff;
+    background-color: rgba(0,0,0,0);
+    transition: .3s;
+    :hover {
+        cursor: pointer ;
+        background-color: rgba(355, 355, 355, 0.4)
+    }
+}
+`
+
+const YoutubePopup = styled.div`
+position: absolute
+`
+const popupStyles = ({videoOpen}) => css`
+display: none;
+position:fixed;
+.dim {
+    position: fixed;
+    z-index: -100;
+    top: 0;
+    left: 0;
+    ${'' /* transition: .3s; */}
+    transition-delay: .3s;
+    transition: background-color .3s, z-index .4s;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255,255,255,0);
+}
+
+${videoOpen === true &&`
+display: block;
+
+.dim {
+    z-index: 50;
+    transition: background-color .3s, z-index .1s;
+    background-color: rgba(0,0,0,.8);
+}
+.overlay {
+    z-index: 100;
+    position: fixed;
+    width: 80%;
+    height: 80%; 
+    top:15%;
+    left:10%;
+}
+`}
+`
+
+const Spacer = styled.div`
+height: 500px;
+`
+
+
 const IndexPage = () => {
+  const [videoOpen, setVideoOpen] = useState(false);
+  console.log(videoOpen)
   return (
       <Layout>
         <Main style={pageStyles}>
@@ -141,12 +210,6 @@ const IndexPage = () => {
                         src={`../images/glacierLogo.png`}
                         alt="Glacier International Logo"
                          style={{
-                            //  maxHeight: "112px",
-                            //  maxWidth: "797px",
-                            //  maxWidth: "80vw",
-                            //  maxHeight: "100%",
-                            //  width: "100%",
-                            //  height: "100%",
                              gridArea: "1/1",
                              position: "relative",
                              margin: "0 10px",
@@ -155,7 +218,7 @@ const IndexPage = () => {
                              opacity: "1",
                              mixBlendMode: "overlay",
                             }}
-                        />    
+                    />    
                     <p>Glacier International is a one-stop shop for importing, right hand drive re-manufacturing, and customising your Toyota Tundra. With cutting edge technology, the 2022 Toyota Tundra is a half-ton, meticulously engineered heavy metal machine, and our goal is to deliver it to Kiwis who value reliability, performance and class over anything else.</p>
                     <a href="mailto:sales@glacier.nz"><button >Enquire</button></a>
                     </div>
@@ -165,11 +228,54 @@ const IndexPage = () => {
             </div>
         </div>
         </Main>
+
+        //second style to remove toyota logo
+        <Youtube2 style={{ display: "grid", maxHeight: 640}} id="homeSection">
+            <StaticImage
+                src={`../images/Platinum.JPG`}
+                alt="Sold Tundra Image"
+                style={{
+                        maxHeight: "640px",
+                        gridArea: "1/1",
+                        position: "relative",
+                        placeItems: "center",
+                        display: "grid",
+                        filter: "brightness(40%)"
+                    }}
+            />   
+            <div
+                style={{
+                    gridArea: "1/1",
+                    position: "relative",
+                    placeItems: "center",
+                    display: "grid",
+                    }}
+                >
+                <button onClick={() => {setVideoOpen(!videoOpen)}}>PLAY</button>
+            </div>
+        </Youtube2>
+
+
+        
+        <div css={popupStyles({ videoOpen })} >
+            <div class="dim"/>
+            <div class="overlay">
+                <button onClick={() => {setVideoOpen(!videoOpen)}}>close</button>
+                <iframe width="100%" height="600px" src={(videoOpen ? "https://www.youtube.com/embed/videoseries?list=PLuYwryiueK-4mtYgDOpM9ZEWnhqUsrHgB&autoplay=1" : "https://www.youtube.com/embed/videoseries?list=PLuYwryiueK-4mtYgDOpM9ZEWnhqUsrHgB")} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>
+            </div>
+        </div>  
+        <Spacer></Spacer>
+
+
+        {/* //first implementation
         <YoutubeEmbed>
         <div>
             <iframe width="100%" height="600px" src="https://www.youtube.com/embed/videoseries?list=PLuYwryiueK-4mtYgDOpM9ZEWnhqUsrHgB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>
         </div>
-        </YoutubeEmbed>
+        </YoutubeEmbed> */}
+        
+        
+                
     </Layout>
   )
 }

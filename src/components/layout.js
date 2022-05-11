@@ -11,6 +11,7 @@ import { useStaticQuery, graphql} from "gatsby"
 import { Helmet } from "react-helmet"
 import { Global, css } from '@emotion/react'
 import Nav from './nav'
+import Terms from './terms'
 // import Footer from './footer'
 
 
@@ -50,6 +51,7 @@ const Layout = ({ children, pageLocation}) => {
             }
           `}
         />
+        <Terms pageLocation={pageLocation}/>
         <Nav pageLocation={pageLocation}/>
         <main>{children}</main>
         {/* <Footer pageLocation={pageLocation}/> */}
