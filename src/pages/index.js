@@ -165,16 +165,61 @@ display: block;
 .dim {
     z-index: 50;
     transition: background-color .3s, z-index .1s;
-    background-color: rgba(0,0,0,.8);
+    background-color: rgba(0,0,0,.3);
 }
 .overlay {
     z-index: 100;
     position: fixed;
-    width: 80%;
-    height: 80%; 
+    max-width: 900px;
+    width: 100%;
+    height: 100%; 
     top:15%;
-    left:10%;
+    left: 50%;
+    transform: translate(-50%, 0);
 }
+
+button {
+    background-color: rgba(0,0,0,0);
+    border: none;
+    color: white;
+    :hover {
+        cursor: pointer;
+    }
+    top: -4%;
+    right: -2%;
+}
+.hamburger-box {
+    width: 40px;
+    height: 24px;
+    display: inline-block;
+    position: relative;
+    background-color: rgba(0,0,0,0);
+}
+.hamburger-inner-active {
+        display: block;
+        width: 20px;
+        height: 3px;
+        background-color: white;
+        border-radius: 4px;
+        position: absolute;
+        top: 50%;
+        transform: rotate(45deg);
+        transition: top 0.075s ease,
+        transform 0.075s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
+      } 
+    .hamburger-inner-active::after {
+        width: 20px;
+        height: 3px;
+        background-color: white;
+        border-radius: 4px;
+        position: absolute;
+        content: "";
+        right: 0%;
+        bottom: 0;
+        transform: rotate(-90deg);
+        transition: bottom 0.075s ease,
+        transform 0.075s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
 `}
 `
 
@@ -260,7 +305,12 @@ const IndexPage = () => {
         <div css={popupStyles({ videoOpen })} >
             <div class="dim"/>
             <div class="overlay">
-                <button onClick={() => {setVideoOpen(!videoOpen)}}>close</button>
+                {/* <button onClick={() => {setVideoOpen(!videoOpen)}}>close</button> */}
+                <button css={popupStyles({ videoOpen })} onClick={() => setVideoOpen(!videoOpen)} aria-label="Navigation menu toggle">
+                        <span className="hamburger-box">
+                            <span className="hamburger-inner-active"></span>
+                        </span>
+                </button>
                 <iframe width="100%" height="600px" src={(videoOpen ? "https://www.youtube.com/embed/videoseries?list=PLuYwryiueK-4mtYgDOpM9ZEWnhqUsrHgB&autoplay=1" : "https://www.youtube.com/embed/videoseries?list=PLuYwryiueK-4mtYgDOpM9ZEWnhqUsrHgB")} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>
             </div>
         </div>  
