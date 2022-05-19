@@ -194,8 +194,14 @@ button {
     display: inline-block;
     position: relative;
     background-color: rgba(0,0,0,0);
+    opacity: 0.5;
+    transition: .3s;
+    :hover {
+        opacity: 1;
+    }
 }
 .hamburger-inner-active {
+        transition: .3s;
         display: block;
         width: 20px;
         height: 3px;
